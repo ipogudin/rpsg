@@ -1,9 +1,6 @@
 package ipogudin;
 
-import ipogudin.domain.BasicStatisticsAggregator;
-import ipogudin.domain.GameProcessor;
-import ipogudin.domain.ClassicGameProcessor;
-import ipogudin.domain.StatisticsAggregator;
+import ipogudin.domain.*;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -12,7 +9,7 @@ public class GameConfiguration {
 
     @Bean
     public GameProcessor gameProcessor() {
-        return new ClassicGameProcessor();
+        return new ClassicGameProcessorCyclicAlgo();
     }
 
     @Bean

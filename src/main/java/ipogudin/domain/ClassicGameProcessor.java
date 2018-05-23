@@ -16,7 +16,6 @@ import static ipogudin.domain.Result.COMPUTER_WON;
  */
 public class ClassicGameProcessor implements GameProcessor {
 
-    private final List<Shape> rules = Arrays.asList(ROCK, PAPER, SCISSORS, ROCK);
     private final Random rand = new Random();
 
     @Override
