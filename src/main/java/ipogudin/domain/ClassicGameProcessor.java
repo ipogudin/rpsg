@@ -1,9 +1,5 @@
 package ipogudin.domain;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-
 import static ipogudin.domain.Shape.ROCK;
 import static ipogudin.domain.Shape.PAPER;
 import static ipogudin.domain.Shape.SCISSORS;
@@ -16,17 +12,19 @@ import static ipogudin.domain.Result.COMPUTER_WON;
  */
 public class ClassicGameProcessor implements GameProcessor {
 
-    private final Random rand = new Random();
+    private final Strategy strategy;
+
+    public ClassicGameProcessor(Strategy strategy) {
+        this.strategy = strategy;
+    }
 
     @Override
     public GameResult process(Shape userShape) {
-        Shape computerShape = randomShape();
+        Shape computerShape = strategy.showShape();
         Result r = play(userShape, computerShape);
-        return GameResult.create(r, userShape, computerShape);
-    }
-
-    protected Shape randomShape() {
-        return Shape.values()[rand.nextInt(Shape.values().length)];
+        GameResult gr = GameResult.create(r, userShape, computerShape);
+        strategy.record(gr);
+        return gr;
     }
 
     protected Result play(Shape userShape, Shape computerShape) throws RuntimeException {

@@ -8,8 +8,13 @@ import org.springframework.context.annotation.Configuration;
 public class GameConfiguration {
 
     @Bean
-    public GameProcessor gameProcessor() {
-        return new ClassicGameProcessorCyclicAlgo();
+    public Strategy strategy() {
+        return new ProbabilityStrategy();
+    }
+
+    @Bean
+    public GameProcessor gameProcessor(Strategy strategy) {
+        return new ClassicGameProcessorCyclicEngine(strategy);
     }
 
     @Bean

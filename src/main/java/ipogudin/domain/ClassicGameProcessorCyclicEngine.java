@@ -11,11 +11,15 @@ import static ipogudin.domain.Shape.PAPER;
 import static ipogudin.domain.Shape.ROCK;
 import static ipogudin.domain.Shape.SCISSORS;
 
-public class ClassicGameProcessorCyclicAlgo extends ClassicGameProcessor {
+public class ClassicGameProcessorCyclicEngine extends ClassicGameProcessor {
 
     //rules should contain a list of shapes. A shape with the highest position wins
     // with exception that the first shape beats the last on.
     private final List<Shape> rules = Arrays.asList(ROCK, PAPER, SCISSORS);
+
+    public ClassicGameProcessorCyclicEngine(Strategy strategy) {
+        super(strategy);
+    }
 
     @Override
     protected Result play(Shape userShape, Shape computerShape) {
