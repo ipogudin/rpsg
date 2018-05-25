@@ -1,28 +1,19 @@
 package ipogudin.domain;
 
-import ipogudin.GameConfiguration;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Import;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import static ipogudin.domain.Shape.ROCK;
 import static ipogudin.domain.Shape.PAPER;
+import static ipogudin.domain.Shape.ROCK;
 import static ipogudin.domain.Shape.SCISSORS;
+import static org.assertj.core.api.Assertions.assertThat;
 
-import static org.assertj.core.api.Assertions.*;
+public abstract class RuleValidationTest {
 
-@RunWith(SpringRunner.class)
-@Import(GameConfiguration.class)
-public class ClassicGameProcessorTest {
-
-    @Autowired
-    private GameProcessor gameProcessor;
+    protected abstract GameProcessor gameProcessor();
 
     @Test
     public void processingValidGame() {
-        GameResult gr = gameProcessor.process(ROCK);
+        GameResult gr = gameProcessor().process(ROCK);
         assertThat(gr.getResult()).isNotNull();
         assertThat(gr.getUserShape()).isNotNull();
         assertThat(gr.getUserShape()).isEqualTo(ROCK);
@@ -31,7 +22,7 @@ public class ClassicGameProcessorTest {
 
     @Test
     public void validationRulesForRock() {
-        GameResult gr = gameProcessor.process(ROCK);
+        GameResult gr = gameProcessor().process(ROCK);
         if (gr.getComputerShape() == ROCK) {
             assertThat(gr.getResult()).isEqualTo(Result.DRAW);
         }
@@ -45,7 +36,7 @@ public class ClassicGameProcessorTest {
 
     @Test
     public void validationRulesForPaper() {
-        GameResult gr = gameProcessor.process(PAPER);
+        GameResult gr = gameProcessor().process(PAPER);
         if (gr.getComputerShape() == ROCK) {
             assertThat(gr.getResult()).isEqualTo(Result.USER_WON);
         }
@@ -59,7 +50,7 @@ public class ClassicGameProcessorTest {
 
     @Test
     public void validationRulesForScissors() {
-        GameResult gr = gameProcessor.process(SCISSORS);
+        GameResult gr = gameProcessor().process(SCISSORS);
         if (gr.getComputerShape() == ROCK) {
             assertThat(gr.getResult()).isEqualTo(Result.COMPUTER_WON);
         }
@@ -70,4 +61,5 @@ public class ClassicGameProcessorTest {
             assertThat(gr.getResult()).isEqualTo(Result.DRAW);
         }
     }
+
 }
